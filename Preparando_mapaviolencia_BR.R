@@ -1,49 +1,115 @@
+
+# Ativando Pacotes necessarios para a execucao do Script
+
 library(readxl)
-dados2<- read_excel("C:/Users/Eliza/Downloads/MapaViolencia2015_mulheres.xlsx")
-View(dados2)
+library(pander)
+library(ggplot2)
+library(car)
+library(MASS)
+library(tidyverse)
 
-# Carregando dados
 
-# Gerando gráfico 
+# Inserindo banco de dados
 
-plot1 <- ggplot(dados2, aes(x=Feminicidio, y= IDHM2010, color= Municipio)) +
-  geom_jitter() 
+library(readxl)
+MapaViolencia2012_mulheres <- read_excel("eliza_dados/MapaViolencia2012_mulheres.xlsx", 
+                                         col_types = c("text", "numeric", "numeric", 
+                                                       "numeric"))
+View(MapaViolencia2012_mulheres)
+
+
+
+# Gerando graficos de dispersao das variaveis
+
+# Grafico 1 - Dispersao entre Feminicidio e IDH
+
+violence <- MapaViolencia2012_mulheres
+feminicidio <- violence$Taxa_Feminicidio
+IDH <- violence$IDH_2010
+plot1 <- ggplot(violence, aes(x=feminicidio, y= IDH, color= Estado)) +
+  geom_jitter()
+plot1
+
 plot2 <- plot1 +
-  labs( x = "Taxa de Feminicidio", y = "IDH") + 
-  theme(legend.position = "none")
+  labs( x = "Taxa de Feminicidio - 2012", y = "IDH - 2010")
 plot2
 
+# Grafico 2 - Dispersao entre Feminicidio e Desemprego
+
+desemprego <- violence$Desemprego_2011
+plot1 <- ggplot(violence, aes(x=feminicidio, y= desemprego, color= Estado)) +
+  geom_jitter()
+plot1
+
+plot2 <- plot1 +
+  labs( x = "Taxa de Feminicidio - 2012", y = "Desemprego - 2010")
+plot2
+
+
 # Rodando regressao
+
 # Gerando grafico
 
-regres <- lm (Taxa_Feminicidio ~ Desemprego_2011 + IDH_2010, data = dados2)
-summary(regres)
+# Gerando coeficientes de regressao sem o pander
 
-plot(regres)
+regressao_1 <- lm (feminicidio ~ desemprego + IDH, data = violence)
+summary(regressao_1)
 
-# Testando Pressupostos
-# Analisando se ha outliers na amostra 3 tipos
+plot(regressao_1)
 
-# ativando pacote para testes de outliers
+
+# Gerando coeficientes de regressao com o pander 
+
+pander (regressao_1 <- lm (feminicidio ~ desemprego + IDH, data = violence))
+summary(regressao_1)
+
+plot(regressao_1)
+
+
+
+# Testando Pressupostos para a analise de regressao
+
+# Analisando se ha outliers na amostra: 3 tipos de testes
+
+# Ativando pacote para testes de outliers
+
 library(car)
+
 # Teste P- valor para observacoes mais extremas
-outlierTest(regres)
+outlierTest(regressao_1)
+
+
+cooks.distance(regressao_1)
+
+
+round(cooks.distance(regressao_1), digits = 2) # ajustando a quantidade de digitos
+
+
+# Grafico de COOKS - mostra os valores e onde se encontram na dispersao cada caso
+
+cooksd<-cooks.distance(regressao_1) # salvando os valores
+plot(cooksd, pch="*", cex=2, main="Influential Obs by Cooks distance") # plotando
+abline(h = 4*mean(cooksd, na.rm=T), col="red") # adicionando a linha
+text(x=1:length(cooksd)+1, y=cooksd, labels=feminicidio, col="red")
+
 
 # Elaborando grafico do teste de outliers
-# Qqplot para entender os entender os resíduos 
 
-qqPlot(regres, main="QQ Plot")
+# Qqplot para entender os entender os residuos 
+
+qqPlot(regressao_1, main="QQ Plot")
 
 # LeveragePlots - pontos mais extremos
 
-leveragePlots(regres)
+leveragePlots(regressao_1)
 
 
-# Testando Pressuposto não-normalidade, normalidade dos residuos
+# Testando Pressuposto nao-normalidade, normalidade dos residuos
 
 library(MASS)
 # Distribuicao de residuo grafico
-distresid <- studres(regres)
+distresid <- studres(regressao_1)
+
 
 # elaborando grafico de histograma para residuos
 
@@ -57,33 +123,36 @@ lines(xfit, yfit)
 # Testando Pressuposto da Homecedasticidade
 
 #Avalindo homecedasticidade - teste de variancia
-ncvTest(regres)
+ncvTest(regressao_1)
 
 #Gerando grafico do teste de homocedasticidade
 
-spreadLevelPlot(regres)
+spreadLevelPlot(regressao_1)
 
 # Testando Pressuposto de Multicolinaridade
 # Avaliando Colinearidade
+library(pander)
+vif(regressao_1)
+pander(sqrt(vif(regressao_1)) > 2)
+pander(sqrt(vif(regressao_1)))
 
-vif(regres)
-sqrt(vif(regres)) > 2
-sqrt(vif(regres))
+# Testando Pressuposto Nao-linearidade
+
+# Avaliando nao-linearidade
+
+crPlots(regressao_1)
+
+ceresPlots(regressao_1)
 
 
-# Testando Pressuposto Não-linearidade
-
-# Avaliando não-linearidade
-
-crPlots(regres)
-
-ceresPlots(regres)
-
-
-# Testando Pressuposto da não independencia dos erros 
+# Testando Pressuposto da nao independencia dos erros 
 
 # Avaliando Teste para erros auto-correlacionados
 
-durbinWatsonTest(regres)
 
+durbinWatsonTest(regressao_1) # Gerou tabela de coeficientes atraves do summary da regressao
+
+
+
+# Graficos para Analise Exploratoria dos Dados
 
