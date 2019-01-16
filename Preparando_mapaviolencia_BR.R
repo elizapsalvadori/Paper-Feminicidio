@@ -7,9 +7,10 @@ library(ggplot2)
 library(car)
 library(MASS)
 library(tidyverse)
-
+library(ggpubr)
 
 # Inserindo banco de dados
+
 
 library(readxl)
 MapaViolencia2012_mulheres <- read_excel("eliza_dados/MapaViolencia2012_mulheres.xlsx", 
@@ -48,9 +49,9 @@ plot2
 
 # Rodando regressao
 
-# Gerando grafico
+# Gerando grafico e tabela
 
-# Gerando coeficientes de regressao sem o pander
+# Gerando coeficientes de regressao SEM o pander
 
 regressao_1 <- lm (feminicidio ~ desemprego + IDH, data = violence)
 summary(regressao_1)
@@ -58,7 +59,7 @@ summary(regressao_1)
 plot(regressao_1)
 
 
-# Gerando coeficientes de regressao com o pander 
+# Gerando coeficientes de regressao COM o pander 
 
 pander (regressao_1 <- lm (feminicidio ~ desemprego + IDH, data = violence))
 summary(regressao_1)
@@ -95,7 +96,7 @@ text(x=1:length(cooksd)+1, y=cooksd, labels=feminicidio, col="red")
 
 # Elaborando grafico do teste de outliers
 
-# Qqplot para entender os entender os residuos 
+# Qqplot para entender os residuos 
 
 qqPlot(regressao_1, main="QQ Plot")
 
@@ -106,12 +107,16 @@ leveragePlots(regressao_1)
 
 # Testando Pressuposto nao-normalidade, normalidade dos residuos
 
+# Ativando pacote necessario
+
 library(MASS)
-# Distribuicao de residuo grafico
+
+# Distribuicao de residuo no grafico
+
 distresid <- studres(regressao_1)
 
 
-# elaborando grafico de histograma para residuos
+# Elaborando grafico de histograma para residuos
 
 hist(distresid, freq=FALSE, 
      main="Distribution of Studentized Residuals")
@@ -122,16 +127,23 @@ lines(xfit, yfit)
 
 # Testando Pressuposto da Homecedasticidade
 
-#Avalindo homecedasticidade - teste de variancia
+# Avaliando homecedasticidade - teste de variancia
+
 ncvTest(regressao_1)
 
-#Gerando grafico do teste de homocedasticidade
+# Gerando grafico do teste de homocedasticidade
 
 spreadLevelPlot(regressao_1)
 
 # Testando Pressuposto de Multicolinaridade
+
 # Avaliando Colinearidade
+# Ativando pacote necessario
+
 library(pander)
+
+# Rodando comando para visualização do pressuposto
+
 vif(regressao_1)
 pander(sqrt(vif(regressao_1)) > 2)
 pander(sqrt(vif(regressao_1)))
@@ -155,4 +167,54 @@ durbinWatsonTest(regressao_1) # Gerou tabela de coeficientes atraves do summary 
 
 
 # Graficos para Analise Exploratoria dos Dados
+
+
+# Exploracao dos dados sobre feminicidio
+
+
+data <- data.frame( Estado=MapaViolencia2012_mulheres$Estado,
+                    Taxa_Feminicidio=MapaViolencia2012_mulheres$Taxa_Feminicidio)
+
+Grafico1 <- data %>%
+  mutate(Estado = fct_reorder(Estado, Taxa_Feminicidio)) %>%
+  ggplot(aes(x=Estado, y=Taxa_Feminicidio)) +
+  geom_bar(stat="identity", color = "black", fill = rgb(0.1,0.4,0.5,0.7)) +
+  ggtitle("Taxa de Feminicídios por Estado - 2012") +
+  xlab("Estados") + 
+  ylab("Taxa de Feminicídio") +
+ coord_flip()
+Grafico1
+
+# Exploracao dos dados sobre IDH
+
+data <- data.frame( Estado=MapaViolencia2012_mulheres$Estado,
+                    IDH_2010=MapaViolencia2012_mulheres$IDH_2010)
+
+Grafico2 <- data %>%
+  mutate(Estado = fct_reorder(Estado, IDH_2010)) %>%
+  ggplot(aes(x=Estado, y=IDH_2010)) +
+  geom_bar(stat="identity", color = "black", fill = rgb(0.1,0.4,0.5,0.7)) +
+  ggtitle("Índice de Desenvolvimento Humano por Estado - 2010") +
+  xlab("Estados") + 
+  ylab("IDH - 2010") +
+  coord_flip()
+Grafico2
+
+# Exploracao dos dados sobre Desemprego 
+
+data <- data.frame( Estado=MapaViolencia2012_mulheres$Estado,
+                    Desemprego_2011=MapaViolencia2012_mulheres$Desemprego_2011)
+
+Grafico3<- data %>%
+  mutate(Estado = fct_reorder(Estado, Desemprego_2011)) %>%
+  ggplot(aes(x=Estado, y=Desemprego_2011)) +
+  geom_bar(stat="identity", color = "black", fill = rgb(0.1,0.4,0.5,0.7)) +
+  ggtitle("Taxa de Desemprego por Estado - 2011") +
+  xlab("Estados") + 
+  ylab("Taxa de Desemprego") +
+  coord_flip()
+Grafico3
+# Inserindo comando para unir graficos
+
+ggarrange(Grafico1, Grafico2, Grafico3)
 
