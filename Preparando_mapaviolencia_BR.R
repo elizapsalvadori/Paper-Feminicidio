@@ -19,7 +19,6 @@ MapaViolencia2012_mulheres <- read_excel("eliza_dados/MapaViolencia2012_mulheres
 View(MapaViolencia2012_mulheres)
 
 
-
 # Gerando graficos de dispersao das variaveis
 
 # Grafico 1 - Dispersao entre Feminicidio e IDH
@@ -216,5 +215,33 @@ Grafico3<- data %>%
 Grafico3
 # Inserindo comando para unir graficos
 
+# Ativando pacote para unir graficos
+
+library(ggpubr)
 ggarrange(Grafico1, Grafico2, Grafico3)
 
+# Analise Exploratoria de cada variavel
+# Elaborando tabelas com estatisticas descritivas
+
+# Estatistica descritiva desemprego
+
+
+pander(summary(desemprego))
+var(desemprego)
+sd(desemprego)
+
+
+# Estatistica Descritiva feminicidio
+
+
+pander(summary(feminicidio))
+var(feminicidio)
+sd(feminicidio)
+
+
+# Estatistica Descritiva IDH
+
+
+pander(summary(IDH))
+var(IDH)
+sd(IDH)
