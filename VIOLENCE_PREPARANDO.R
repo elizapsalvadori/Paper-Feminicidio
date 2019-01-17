@@ -1,3 +1,6 @@
+install.packages("tinytex")
+library(tinytex)
+
 # Abrir a base de dados
 
 library(readxl) # carregar pacote para abrir a base
@@ -8,7 +11,6 @@ MapaViolencia2012_mulheres <- read_excel("C:/Users/Eliza/Documents/eliza_dados/M
 
 # Transformacao de variavel em numerica e atribuindo nomes
 
-# ISSO NAO É NECESSARIO
 violence <- MapaViolencia2012_mulheres
 desemprego <- violence$Desemprego_2011
 feminicidio <- violence$Taxa_Feminicidio
@@ -70,9 +72,13 @@ Grafico3<- data3 %>%
 
 # Inserindo comando para unir graficos
 
-# Ativando pacote para unir graficos
-
 ggarrange(Grafico1,Grafico2,Grafico3)
+
+figura1 <- ggarrange(Grafico1,Grafico2,Grafico3, common.legend = TRUE, 
+                     legend = "bottom")
+annotate_figure(figura1, top = text_grob("Figura 1", color = "black", 
+                                         size = 14), 
+                bottom = text_grob("Fonte: Elaboração Própria ", color = "black", hjust = 1, x = 1, size = 10))
 
 
 # Analise Exploratoria das Variaveis 
@@ -81,7 +87,7 @@ ggarrange(Grafico1,Grafico2,Grafico3)
 
 library(pander)
 
-pander(summary(violence, headr=T))
+pander(summary(violence, headr=T), caption = "Estatísticas Descritivas")
 
 
 # Correlacao Linear entre as variaveis do modelo
@@ -94,7 +100,7 @@ library(pander)
 # Correlacao entre feminicidio vs desemprego
 
 cor(feminicidio,desemprego)
-pander(cor.test(feminicidio,desemprego))
+pander(cor.test(feminicidio,desemprego), caption = "Feminicídio e Desemprego")
 
 # Ativar pacote
 
@@ -114,7 +120,7 @@ plot1 <- ggplot(violence, aes(x=feminicidio, y= desemprego, color= Estado)) +
 
 plot2 <- plot1 +
   labs( x = "Taxa de Feminicidio - 2012", y = "Desemprego - 2010")
-plot2
+plot2 + theme(legend.position = "none")
 
 # Correlacao entre feminicido vs IDH
 
@@ -140,7 +146,7 @@ plot1 <- ggplot(violence, aes(x=feminicidio, y= IDH, color= Estado)) +
 
 plot2 <- plot1 +
   labs( x = "Taxa de Feminicidio - 2012", y = "IDH - 2010")
-plot2
+plot2 + theme(legend.position = "none")
 
 
 # Modelo de regressao 
@@ -191,6 +197,24 @@ qqPlot(regressao_1, main="QQ Plot")
 leveragePlots(regressao_1)
 
 
+# Testando Pressuposto da Homecedasticidade
+
+# Ativando pacote
+
+library(ggplot2)
+library(pander)
+library(lmtest)
+
+# Avaliando homecedasticidade - teste de variancia
+
+
+# Gerando grafico do teste de homocedasticidade
+
+spreadLevelPlot(regressao_1)
+
+pander(bptest(regressao_1, varformula = NULL, studentize = TRUE, data = violence()))
+
+
 # Testando Pressuposto nao-normalidade, normalidade dos residuos
 
 # Ativando pacote
@@ -201,23 +225,6 @@ library(MASS)
 
 distresid <- studres(regressao_1)
 
-
-# Testando Pressuposto da Homecedasticidade
-
-# Ativando pacote
-
-library(ggplot2)
-library(pander)
-
-# Avaliando homecedasticidade - teste de variancia
-
-ncvTest(regressao_1)
-
-# Gerando grafico do teste de homocedasticidade
-
-spreadLevelPlot(regressao_1)
-
-
 # Elaborando grafico de histograma para residuos
 
 hist(distresid, freq=FALSE, 
@@ -225,8 +232,6 @@ hist(distresid, freq=FALSE,
 xfit<-seq(min(distresid),max(distresid),length=40) 
 yfit<-dnorm(xfit) 
 lines(xfit, yfit)
-
-
 
 # Testando Pressuposto de Multicolinaridade
 
@@ -267,10 +272,9 @@ pander(durbinTabela)
 library(ggplot2)
 library(pander)
 
-# Avaliando homecedasticidade - teste de variancia
 
-ncvTest(regressao_1)
 
-# Gerando grafico do teste de homocedasticidade
 
-spreadLevelPlot(regressao_1)
+# COLOCAR ANTES DE TODAS AS REGRESSOES
+install.packages("lmtest")
+library(lmtest)
