@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ##__Resumo:__  
 Buscamos explorar os efeitos de fatores econômicos sobre as taxas de feminicídio. Avalia a hipótese de quanto maior o IDH, menor a taxa de feminicídio. Empregando a técnica de correlação de Pearson e regressão linear. Além disso, são testados alguns pressupostos que contribuem para uma análise mais confiável nos resultados encontrados, principalmente, na regressão. Os dados coletados para a variável dependente feminicídio foram retirados do Mapa da Violência (2012); para as variáveis independente IDH, o Atlas de Desenvolvimento do Brasil (2010); e, por fim, sobre as taxas de desemprego desenvolvida pela PNAD foram retiradas do site Wikipédia. A análise foi feita para os 26 estados brasileiros e o Distrito Federal. As descobertas que ao contrário do que a literatura mais recente aponta, não há relação significativa entre as medidas de IDH, desemprego como preditores do feminicídio. Entretanto, o tamanho da amostra, o número e os tipos de variáveis independentes têm impacto nessa relação. Logo, teorias de clivagem social seriam mais adequadas para explicar o feminicídio. 
 
-__Palavras-chave__: Feminicídio. Desenvolvimento. Brasil
+__Palavras-chave__: Feminicídio. Desenvolvimento. Desemprego. Brasil.
 
 ## __Introdução__
 
@@ -86,8 +86,12 @@ A variável dependente do modelo é taxa de feminicídio, as informações sobre
 As variáveis independentes são IDH e Desemprego. A primeira é elaborada através da disponibilização dos dados dos Censos Populacionais pelo IBGE e mede os níveis de renda, educação e saúde através de um conjunto de banco de dados. O Distrito Federal possui o maior IDH (0,824), já o estado de Alagoas possui o IDH mais baixo (0,631). Os dados do desemprego estão disponíveis no site Wikipédia, os dados são provenientes da Pesquisa Nacional por Amostra de Domicílio (PNAD) divulgada anualmente^[Para mais informações sobre os dados: https://pt.wikipedia.org/wiki/Lista_de_unidades_federativas_do_Brasil_por_taxa_de_desemprego. Acesso em 12 de Janeiro de 2019.]. O estado com a maior taxa de desemprego foi o Amapá (12,9) enquanto que a menor taxa foi Rondônia (3,1).
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+
 # Abrir a base de dados
 
+# Ativar pacotes
+library(haven)
+library(tidyverse)
 library(readxl) # carregar pacote para abrir a base
 
 MapaViolencia2012_mulheres <- read_excel("C:/Users/Eliza/Documents/eliza_dados/MapaViolencia2012_mulheres.xlsx",
@@ -711,6 +715,8 @@ Edward N. Muller and Mitchell A. Seligson, ‘‘Inequality and Insurgency,’�
 Flood, M., & Pease, B. (2006). The factors influencing community attitudes in relation to violence against women: A critical review of the literature. Melbourne, Australia: Victorian Health Promotion Foundation.
 
 Flood, M., & Pease, B. (2009). Factors Influencing Attitudes to Violence Against Women. Trauma, Violence & Abuse, 10(2), 125-142. 
+
+Fox, J. "Regression Diagnostics", Quick-R, by Datacamp, disponível em: <https://www.statmethods.net/stats/rdiagnostics.html>. Acesso em 10 jan. 2019
 
 Gartner R, Baker K, Pampel F. Gender stratification and the gender gap in homicide victimization. Social Problems. 1990;37:593–612. 25. 
 
