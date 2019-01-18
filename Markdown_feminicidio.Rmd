@@ -14,6 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ##__Resumo:__  
 Buscamos explorar os efeitos de fatores econômicos sobre as taxas de feminicídio. Avalia a hipótese de quanto maior o IDH, menor a taxa de feminicídio. Empregando a técnica de correlação de Pearson e regressão linear. Além disso, são testados alguns pressupostos que contribuem para uma análise mais confiável nos resultados encontrados, principalmente, na regressão. Os dados coletados para a variável dependente feminicídio foram retirados do Mapa da Violência (2012); para as variáveis independente IDH, o Atlas de Desenvolvimento do Brasil (2010); e, por fim, sobre as taxas de desemprego desenvolvida pela PNAD foram retiradas do site Wikipédia. A análise foi feita para os 26 estados brasileiros e o Distrito Federal. As descobertas que ao contrário do que a literatura mais recente aponta, não há relação significativa entre as medidas de IDH, desemprego como preditores do feminicídio. Entretanto, o tamanho da amostra, o número e os tipos de variáveis independentes têm impacto nessa relação. Logo, teorias de clivagem social seriam mais adequadas para explicar o feminicídio. 
 
+__Palavras-chave__: Feminicídio. Desenvolvimento. Brasil
+
 ## __Introdução__
 
 Regiões menos desenvolvidas têm maiores taxas de feminicídio? O presente trabalho buscou aprofundar o estudo da violência de gênero em seu viés mais perverso: o feminicídio. O feminicído é definido como o assassinato de mulheres por homens – normalmente parceiros ou ex-parceiros –  apenas por serem mulheres; o crime envolve a violência doméstica e familiar, menosprezo e discriminação à condição de mulher (MENEGHEL; PORTELLA, 2017). É reconhecido atualmente como um fenômeno global e reflete uma manifestação contínua de fatores macrossociais e da desigualdade de gênero.
@@ -511,10 +513,13 @@ regressao_1 <- lm (feminicidio ~ desemprego + IDH, data = violence)
 
 library(ggplot2)
 library(pander)
+library(lmtest)
+library(car)
+
 # Gerando grafico homocedasticidade
 
 spreadLevelPlot(regressao_1)
-pander(bptest(regressao_1, varformula = NULL, studentize = TRUE, data = violence()))
+bptest(regressao_1, varformula = NULL, studentize = TRUE, data = violence())
 
 ```
 
