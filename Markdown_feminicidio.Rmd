@@ -1,15 +1,33 @@
 ---
-title: "ola"
-output:
-  pdf_document: default
-  word_document: default
+title: "Feminicídio: o preço pago por ser mulher"
+subtitle: "Estudo dos determinantes do feminicídio no Brasil"
+author: "Eliza Pereira Salvador Neta"
+output: pdf_document
+subparagraph: yes
+linestretch: 1.5
+geometry: margin=2cm 
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+##__Resumo:__  
+Buscamos explorar os efeitos de fatores econômicos sobre as taxas de feminicídio. Avalia a hipótese de quanto maior o IDH, menor a taxa de feminicídio. Empregando a técnica de correlação de Pearson e regressão linear. Além disso, são testados alguns pressupostos que contribuem para uma análise mais confiável nos resultados encontrados, principalmente, na regressão. Os dados coletados para a variável dependente feminicídio foram retirados do Mapa da Violência (2012); para as variáveis independente IDH, o Atlas de Desenvolvimento do Brasil (2010); e, por fim, sobre as taxas de desemprego desenvolvida pela PNAD foram retiradas do site Wikipédia. A análise foi feita para os 26 estados brasileiros e o Distrito Federal. As descobertas que ao contrário do que a literatura mais recente aponta, não há relação significativa entre as medidas de IDH, desemprego como preditores do feminicídio. Entretanto, o tamanho da amostra, o número e os tipos de variáveis independentes têm impacto nessa relação. Logo, teorias de clivagem social seriam mais adequadas para explicar o feminicídio. 
 
 ## __Introdução__
+
+Regiões menos desenvolvidas têm maiores taxas de feminicídio? O presente trabalho buscou aprofundar o estudo da violência de gênero em seu viés mais perverso: o feminicídio. O feminicído é definido como o assassinato de mulheres por homens – normalmente parceiros ou ex-parceiros –  apenas por serem mulheres; o crime envolve a violência doméstica e familiar, menosprezo e discriminação à condição de mulher (MENEGHEL; PORTELLA, 2017). É reconhecido atualmente como um fenômeno global e reflete uma manifestação contínua de fatores macrossociais e da desigualdade de gênero.
+
+A violência contra a mulher é a violação dos direitos humanos mais tolerada no mundo^[Afirmação da diretora-executiva da ONU Mulheres, Phumzile Mlambo-Ngcuka, no Dia Internacional para a Eliminação da Violência contra a Mulher. Disponível em: https://nacoesunidas.org/violencia-contra-a-mulher-e-a-violacao-de-direitos-humanos-mais-tolerada-no-mundo-afirma-onu/. Acesso em 06 de Janeiro de 2019.] , o caso brasileiro é ainda mais alarmante, sendo o quinto país no mundo onde mais se mata mulheres^[Para mais informações: https://exame.abril.com.br/brasil/taxa-de-feminicidios-no-brasil-e-a-quinta-maior-do-mundo/. Acesso em 03 de Janeiro de 2019]. Portanto, demonstra a forte necessidade de estudos mais profundos sobre os fatores que contribuem com esses altos índices de violência contra a vida da mulher.
+
+A concepção substantiva do Estado está vinculada, principalmente, ao respeito aos direitos individuais e meios não violentos de resolução de conflitos. A elaboração de políticas públicas e a criação de uma rede de apoio e segurança as vítimas de agressões são extremamente necessárias tanto em qualquer sociedade. 
+
+A pergunta de pesquisa que guia o artigo é se as taxas de feminicídio são afetadas pelas taxas de desemprego e pelo Índice de Desenvolvimento Humano? A literatura discute que as desigualdades gênero (PALMA-SOLIS, 2008) em termos de educação, nível econômico, emprego e política aumentam os riscos de as mulheres estarem sujeitas a atos violentos (YLLO, 1983; PALLITTO; O’CAMPO, 2005). A partir dessas concepções que foram desenvolvidas as três hipóteses do presente artigo. A hipótese principal afirma que a taxa de feminicídio (variável dependente) é afetada pelo Índice de Desenvolvimento Humano (IDH), sendo esperada uma relação inversa entre as duas variáveis, e, pela taxa de desemprego, a expectativa é que exista uma relação positiva e ascendente (variáveis independentes). 
+
+Os dados foram recolhidos de três repositórios distintos: Mapa da violência, para as taxas de feminicídio (2012); Atlas do Desenvolvimento do Brasil, para IDH (2010); e as informações para taxa de desemprego (2011) reportados pela Pesquisa Nacional de Amostra por domicílio (PNAD) que estavam disponíveis no site Wikipédia. As informações colhidas para os 26 estados brasileiros e o Distrito Federal. 
+
+A metodologia do trabalho utilizou técnicas que facilitam a compreensão do impacto das variáveis independentes sobre a variável dependente, para isso foi feito um teste de regressão linear atrelado a testes de correlação de Pearson. Também foram testados alguns pressupostos durante a análise para checar a qualidade do modelo. O resultado da regressão demonstrou que o modelo testado não apresentou um bom grau de explicação. Sendo, portanto, necessário uma análise com uma maior quantidade de casos e com uma maior quantidade de variáveis independentes. 
+
 
 ## __Revisão da Literatura__  
 
@@ -65,7 +83,7 @@ A variável dependente do modelo é taxa de feminicídio, as informações sobre
 
 As variáveis independentes são IDH e Desemprego. A primeira é elaborada através da disponibilização dos dados dos Censos Populacionais pelo IBGE e mede os níveis de renda, educação e saúde através de um conjunto de banco de dados. O Distrito Federal possui o maior IDH (0,824), já o estado de Alagoas possui o IDH mais baixo (0,631). Os dados do desemprego estão disponíveis no site Wikipédia, os dados são provenientes da Pesquisa Nacional por Amostra de Domicílio (PNAD) divulgada anualmente^[Para mais informações sobre os dados: https://pt.wikipedia.org/wiki/Lista_de_unidades_federativas_do_Brasil_por_taxa_de_desemprego. Acesso em 12 de Janeiro de 2019.]. O estado com a maior taxa de desemprego foi o Amapá (12,9) enquanto que a menor taxa foi Rondônia (3,1).
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # Abrir a base de dados
 
 library(readxl) # carregar pacote para abrir a base
@@ -150,7 +168,7 @@ annotate_figure(figura1, top = text_grob("Figura 1", color = "black", size = 14)
 
 A estatística descritiva contribui fortemente para uma análise mais sumarizada dos dados da pesquisa, facilitando a organização e a compreensão dos dados bem como suas distribuições, usando medidas de tendência central (média, mediana e moda), medidas de dispersão (valores mínimo e máximo, desvio padrão e variância). A seguir serão feitas as estatísticas descritivas das três variáveis do modelo: Taxa de Feminicídio, Taxa de Desemprego e Índice de Desenvolvimento Humano.
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # Abrir a base de dados
 
 library(readxl) # carregar pacote para abrir a base
@@ -188,7 +206,7 @@ A análise descritiva foi feita para os 26 Estados e o Distrito Federal do Brasi
 
 O coeficiente de correlação de Pearson mede o grau de correlação linear entre duas variáveis quantitativas. O teste feito entre as variáveis de feminicídio e desemprego apresentou uma relação positiva, mas pouco significativa (0,204), o p-valor teve por resultado (0,307), o que demonstra, também, baixa correlação. O gráfico de dispersão demonstra melhor essa relação pouco significativa entre as duas variáveis.
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # Abrir a base de dados
 
 library(readxl) # carregar pacote para abrir a base
@@ -218,7 +236,7 @@ pander(cor.test(feminicidio,desemprego), caption = "Feminicídio e Desemprego")
 ```
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
 # Abrir a base de dados
 
@@ -258,7 +276,7 @@ plot2 + theme(legend.position = "none")
 
 O teste de correlação entre as variáveis feminicídio e IDH demonstrou uma relação negativa e pouco significativa (-0,044) e o p-valor reforça a baixa correlação entre as duas variáveis. O gráfico de dispersão apresentou a relação negativa e pouco significante.
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # Abrir a base de dados
 
 library(readxl) # carregar pacote para abrir a base
@@ -305,7 +323,7 @@ plot2 + theme(legend.position = "none")
 O modelo de regressão linear foi utilizado para estimar os valores condicionais das variáveis independentes, IDH e desemprego, de acordo com os dados da variável dependente, taxa de feminicídio. A hipótese que guia minha pesquisa é que ambas as variáveis afetam a taxa de feminicídio. Além disso, há duas hipóteses específicas: a. quanto maior o IDH, menor a taxa de feminicídio. b. quanto maior a taxa de desemprego, maior a taxa de feminicídio. Todas essas questões serão testadas na regressão. 
 
 A tabela a seguir apresenta as informações sobre a regressão feita com 27 observações. O R quadrado ajustado (-0,038) isso significa que a capacidade explicativa do modelo é muito baixa e, portanto, não corresponde a tendência dos dados. O valor negativo atribuído a essa informação pode estar relacionado ao tamanho da amostra, que é relativamente pequeno. O p-valor (0,599) leva a consideração de não rejeição da hipótese nula, ou seja, que não há relação entre as variáveis. 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # Abrir a base de dados
 
 library(readxl) # carregar pacote para abrir a base
@@ -340,7 +358,7 @@ pander(tabelaregressao, caption = "Resultados Regressao")
 
 O gráfico de Coeficiente reforça o que os dados da tabela anterior sobre a regressão já haviam confirmado, pois, quando os dois pontos das variáveis independentes tocam na linha do 0, demonstra que ambas não são significativas.
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # Abrir a base de dados
 
 library(readxl) # carregar pacote para abrir a base
@@ -367,7 +385,7 @@ coefplot(regressao_1, parm = -1)
 A regressão linear necessita que as suposições do modelo ajustado precisam ser validadas para que as análises dos resultados sejam confiáveis. A seguir serão rodados seis testes para que o resultado da regressão seja de fato confirmado. O primeiro gráfico que é gerado quando a regressão é elaborada. 
 A distribuição dos resíduos, portanto, indica boa qualidade do ajuste. Nesse teste de resíduos é possível comprovar que o modelo respeitou os pressupostos da homocedasticidade (variância dos erros) e linearidade. Além disso, é possível observar a presença de três outliers (casos: 8, 2 e 18). O caso 8 é considerado como um valor atípico, entretanto, a coleta foi feita corretamente e, por ele ser um outlier passa a impressão que seria um problema de resíduo e que comprometeria a análise. Entretanto, é apenas um caso discrepante que influencia o resultado. Os outliers demonstram que devem ser desenvolvidos estudos que ajudem a compreender as razões de índices destoantes da maioria. 
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # Abrir a base de dados
 
 library(readxl) # carregar pacote para abrir a base
@@ -397,7 +415,7 @@ O pressuposto da linearidade serve para visualização da relação entre as var
 
 O teste QQPLOT indica a distribuição dos resíduos. Sendo assim, demonstra a normalidade dos erros. Nesse caso, as observações também estão enquadradas entre as linhas paralelas e indicam um bom ajuste do modelo, obedecendo assim, o pressuposto da normalidade do erro. O gráfico também apresenta a existência de outliers (2 e 8).
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # Abrir a base de dados
 
 library(readxl) # carregar pacote para abrir a base
@@ -434,7 +452,7 @@ qqPlot(regressao_1, main="QQ Plot")
 O pressuposto para observações de outliers pode ser executado através do teste de Leverege Plots. No casso a seguir, foram analisadas as associações entre as feminicídio e cada variável independente. Tanto a relação entre feminicídio e desemprego quanto a feminicídio e IDH apontam para a existência de dois outliers (8 e 2). Demonstrando que há dois casos que ultrapassam a distância média que o restante da amostra possui.
 
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # Abrir a base de dados
 
 library(readxl) # carregar pacote para abrir a base
@@ -466,9 +484,9 @@ library(car)
 leveragePlots(regressao_1)
 ```
 
-O teste seguinte dá indicíos de que há homocedasticidade no modelo. É possível observar que há uma aproximação dos pontos em relação a reta e eles estão distribuídos de modo, relativamente, aleatório. Devido ao pouco número de casos da amostra, outros testes com Breusch Pagan sugerem que uma transformação da variável seja feita. O teste apresentou um p-valor de (0,704) sugerindo heterocedasticidade no modelo, entretanto, ele é recomendado para pesquisas empíricas com grande quantidade de casos.  
+O teste seguinte dá indícios de que há homocedasticidade no modelo. É possível observar que há uma aproximação dos pontos em relação a reta e eles estão distribuídos de modo, relativamente, aleatório. Devido ao pouco número de casos da amostra, outros testes com Breusch Pagan sugerem que uma transformação da variável seja feita. O teste apresentou um p-valor de (0,704) sugerindo heterocedasticidade no modelo, entretanto, ele é recomendado para pesquisas empíricas com grande quantidade de casos.  
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # Abrir a base de dados
 
 library(readxl) # carregar pacote para abrir a base
@@ -502,7 +520,7 @@ pander(bptest(regressao_1, varformula = NULL, studentize = TRUE, data = violence
 
 O próximo teste analisa o pressuposto da normalidade dos resíduos. O gráfico demonstra que há uma distribuição normal dos resíduos do modelo.
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # Abrir a base de dados
 
 library(readxl) # carregar pacote para abrir a base
@@ -580,7 +598,7 @@ pander(sqrt(vif(regressao_1)))
 
 O teste de independência dos erros verifica a auto correlação entre os erros do modelo. O p-valor possui o valor de (0.332), portanto, maior que (0.05). Sendo assim, a hipótese nula (os erros são independentes) não é rejeitada. Logo, não há relação entre as variáveis e o pressuposto de independência dos erros foi respeitado.  
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # Abrir a base de dados
 
 library(readxl) # carregar pacote para abrir a base
@@ -625,4 +643,161 @@ pander(durbinTabela)
 
 
 ```
+
+Através desses resultados é perceptível que a hipótese 1 não foi corroborada, como demonstrado na tabela de regressão. Assim como, as hipóteses específicas. Demonstrando assim, um baixo poder explicativo do modelo. Todos os pressupostos do modelo de regressão foram respeitados, entretanto, em razão do baixo número de observações da amostra, da limitação dos dados e o pouco número de variáveis independentes podem ter impacto no grau de explicação desse problema.  
+
+
+## Considerações Finais  
+
+O trabalho buscou explicar a relação entre as taxas de feminicídio e a variáveis econômicas. A hipótese do artigo de que as taxas de feminicídio são afetadas pelos indicadores de desenvolvimento (IDH) e taxa de desemprego não foi corroborada, assim como, as duas hipóteses específicas, como a teoria sugere. Entretanto, o número de observações na análise pode ter sido um causador do resultado estatístico de baixa significância. Talvez se a regressão fosse rodada para um número maior de casos o resultado poderia ser mais significante. Outro fator são o número de variáveis independentes e forma de mensuração, no modelo poderiam ser incluídas mais variáveis socioeconômicas, políticas e culturais para ter uma maior precisão na análise. A limitação dos dados também é um problema que dificulta a precisão das informações. Todos esses aspectos contribuem com a formação de uma agenda de pesquisa que trate desse problema de forma mais precisa, buscando compreender os determinantes sociais e procurando soluções de longo prazo para solucionar essa patologia social.
+
+Compreender o problema da violência contra a mulher é uma necessidade urgente de todas as nações. Assim como a erradicação pobreza; desigualdade de renda e desemprego são combatidos, o femincídio é uma categoria que precisa ser tratada mais extrema de violência direta e irreparável contra a mulher. O número de casos reportados cresce cada dia mais e são poucas as medidas de prevenção de fato efetivas. Tanto o sistema de jurídico-policial quanto o sistema de saúde são extremamente deficitários no suporte às vítimas de violência. O Estado tem por obrigação fornecer aos cidadãos as garantias mínimas para que os indivíduos tenham seus direitos e liberdades assegurados. Através de políticas públicas de acesso à educação, saúde e segurança que garantam o respeito as vítimas de violência. 
+
+
+# Referências
+
+ANOP Research Services. (1995). Community attitudes to violence against women: Detailed report. Canberra, Australia: Office of the Status of Women, Department of the Prime Minister and Cabinet.
+
+Armijo, C. Genesis of Femicide: Does Violence Against Women Become Institutionalized and Legitimized? If So, How? (March 12, 2010). Western Political Science Association 2010 Annual Meeting Paper. Disponível em http://ssrn.com/abstract=1581152. Acesso em: 09 de Janeiro de 2019.
+
+Bachman R, Saltzman LE. Violence against women: estimates from the redesigned survey. Washington: Bureau of Justice Statistics, National Institute of Justice, 1995.
+
+
+Bailey W. C. (1984), Poverty, inequality, and city homicide rates. Criminology, 22(4), 531–550. doi: 10.1111/ j.1745-9125.1984.tb00314.x
+
+Bailey WC, Peterson RD. Gender inequality and violence against women: The case of murder. In: Hagan J, Peterson RD, eds. Crime and Inequality. Stanford, CA: Stanford University Press; 1995.
+
+Banfield, E. (1968) The Unheavenly City. Boston: Little, Brown.
+
+Banfield, E. (1974) The Un heavenly City Revisited. Boston: Little, Brown. 
+
+Bayley, Willian C. (1984), "Poverty, inequality and city homicide rates: some not so unexpected findings". Criminology, 22: 531-550. 
+
+Beato, C. C. Determinantes da criminalidade em Minas Gerais. Rev. bras. Ci. Soc. v.13 n.37 São Paulo Jun. 1998.
+
+Beato, C. C. Determinantes da criminalidade em Minas Gerais. Revista Brasileira de Ciências Sociais, v. 13, n. 37, p. 74-89, jun. 1998.
+
+Becker, H. Uma teoria da ação coletiva. São Paulo: Zahar, 1982.
+
+Benesty, J., Chen, J., Huang., & Cohen, I.(2009). Pearson Correlation Coefficient. Springer Topics in Signal Processing, 1-4. 
+
+Bennett, R.R (1991). Development and  Crime: a cross-national, time-series analysis of competing models. The Sociological Quarterly, 32(3), 343-363.
+
+Blau, Judith e Blau, Peter M. (1982), "The cost of inequality: metropolitan structure and violent crime". American Sociological Review, 47: 114-129.
+
+Bonger, William A. 1916. Criminality and Economic Conditions. Boston: Little Brown.
+
+Brooks, R. E. (2003). The New Imperialism: Violence, Norms, and the “Rule of Law”. Michigan Law Review. 101 (7), 2275.
+
+Bruce London and Thomas D. Robinson, ‘‘The Effects of International Dependence on Income Inequality and Political Violence,’’ American Sociological Review 54, no. 2 (April 1989): 305–308.
+
+Clinard, Marshall B., and Daniel J. Abbott. 1973. Crime in Developing Nations. New York: John Wiley.
+
+Collins, R. Violence. A Micro-sociological Theory. New Jersey: Princenton University Press, 2008.
+
+Dearwater SR, Coben JH, Nah G, et al. Prevalence of domestic violence in women treated at community hospital emergency department. JAMA 1998; 480: 433–38. 
+
+Dearwater SR, Coben JH, Nah G, et al. Prevalence of domestic violence in women treated at community hospital emergency department. JAMA 1998; 480: 433–38.
+
+Durkheim, Emile. 1964. The Division of Labor in Society. New York: The Free Press.
+
+Edward N. Muller and Mitchell A. Seligson, ‘‘Inequality and Insurgency,’’ Journal of Conflict Resolution 34, no. 4 (1990): 425–452.
+
+Flood, M., & Pease, B. (2006). The factors influencing community attitudes in relation to violence against women: A critical review of the literature. Melbourne, Australia: Victorian Health Promotion Foundation.
+
+Flood, M., & Pease, B. (2009). Factors Influencing Attitudes to Violence Against Women. Trauma, Violence & Abuse, 10(2), 125-142. 
+
+Gartner R, Baker K, Pampel F. Gender stratification and the gender gap in homicide victimization. Social Problems. 1990;37:593–612. 25. 
+
+Gelles RJ, Straus MA. Intimate violence: the causes and consequences of abuse in the American family. New York: Simon and Schuster, 1998.
+
+Gelles RJ. The violent home. Beverley Hills: Sage, 1974.
+
+Guimarães, Paulo Ricardo B. Análise de correlação e medidas de associação. Universidade Federal do Paraná. Disponível em: < https://docs.ufpr.br/~jomarc/correlacao.pdf>. Acesso em: 09 mai. 2017.
+
+Gunn, P. Uma geografia da violência na região metropolitana de S. Paulo nos anos 80. In: PINHEIRO, P. S. (org.). São Paulo sem medo: um diagnóstico da violência urbana. São Paulo: Garamond, 1998.
+
+Gurr, Ted Robert. Why men rebel. Routledge, 2015.
+
+Hotaling GT, Sugarman DB. An analysis of risk markers in husband to wife violence: the current state of knowledge. Violence Vict 1986; 1: 101–24. 
+
+International Clinical Epidemiologists Network. Domestic violence in India. a summary report of a multi-site household survey. Washington: International Centre for Research on Women, 2000.
+
+Jewkes R (2002). Intimate partner violence: causes and prevention. The Lancet, 359 (9315):1423–1429.
+
+Jones AS, Campbell JC, Schollenberger J, et al. Annual and lifetime prevalence of partner abuse in a sample of female HMO enrollees. Womens Health Issues 1999; 9: 295–305.
+
+Jones AS, Campbell JC, Schollenberger J, et al. Annual and lifetime prevalence of partner abuse in a sample of female HMO enrollees. Womens Health Issues 1999; 9: 295–305. 
+
+Joseph Raz, “The Rule of Law and Its Virtue,” The Law Quarterly Review 93 (1977): 196; Herbert L.A. Hart, The Concept of Law (Oxford: Oxford University Press, 1961), 197.
+
+Krug E, Dahlberg L, Mercy J, Zwi A, Lozano R, eds. Informe Mundial sobre la Violencia y la Salud. Washington: Organizacio´n Panamericana de la Salud, Oficina Sanitaria Panamericana, Oficina Regional de la Organizacio´n Mundial de la Salud; 2002.
+
+Land, Kenneth C., McCALL, Patricia L. e COHEN, Lawrence. (1990), "Structural covariates of homicide rates: are there any invariances accross time and social space?". American Sociological Review, 95: 922-963.
+
+Levi, M. e Maguire, M. Violent Crime. In: MAGUIRE, M.; MORGAN, R. e REINNER, R. The Oxford Handbook of Criminology (pp. 795-843). Oxford: The Oxford University Press, 2002. Pp. 322-375.
+
+Meneghel, Stela Nazareth; Portella, Ana Paula. Feminicídios: conceitos, tipos e cenários. Ciênc. saúde coletiva,  Rio de Janeiro,  v. 22, n. 9, p. 3077-3086,  Setembro.  2017. Disponível em: <http://www.scielo.br/scielo.php?script=sci_arttext&pid=S1413-81232017002903077&lng=en&nrm=iso>. Acesso em 05  Jan.  2019. 
+
+Merton, R. K. Estrutura social e anomia. Sociologia: Teoria e Estrutura. São Paulo: Mestre Jou, 1968, p. 203-270.
+
+MESSNER, S. (1980) "Income inequality and murder rates: some cross-national findings," pp. 185-198 in R. Tomasson (ed.) Comparative Social Research, Vol. 3. Greenwich CT: Jai Press.
+
+MESSNER, S. (1982) "Poverty, inequality, and the urban homicide rate: some unexpected findings." Criminology 20 (May): 103-114.
+
+O’Donnell, G. A. (2004). Why the Rule of Law Matters. Journal of Democracy, 15(4), 32-46.
+
+Organização Mundial da Saúde. 2012. “Understanding and Addressing Violence against Women”. Intimate Partner Violence. WHO/RHR/12.36. Disponível em: https://www.who.int/reproductivehealth/topics/violence/vaw_series/en/. Acesso em 04/01/2019.
+
+Paixão, A. L. Crime, controle social e consolidação da democracia. In: REIS, O’DONNELL (eds). A democracia no Brasil. São Paulo: Vértice, 1988.
+
+Pallitto CC, O’Campo P. Community level effects of gender inequality on intimate partner violence and unintended pregnancy in Colombia: Testing a feminist perspective. Soc Sci Med. 2005 ;60:2205–2216.
+
+Palma-Solis, Marco; VIVES-CASES, Carmen; ÁLVAREZ-DARDET, Carlos. Gender progress and govermment expeditures as determinants of feminicide. Annals of epidemiology, v. 18, n 14, p. 322-329, 2008. 
+
+Piazza, J. A. (2006). Rooted in Poverty?: Terrorism, Poor Economic Development, and Social Cleavages. Terrorism and Political Violence, 18(1), 159-177.
+
+Portella, A. P. Como morre uma mulher?: configurações da violência letal contra mulheres em Pernambuco. Tese – Universidade de Pernambuco, Recife, 2014.
+
+Portella, A. P. Situação de saúde e violência contra as mulheres no Recife, PE. Dissertação de Mestrado. Recife: Centro de Pesquisas Aggeu Magalhães/Fiocruz, Mestrado em Saúde Pública, 2008.
+
+Portella, A. P. Violência contra as mulheres: questões e desafios para as políticas públicas. In: CARVALHO, F. L. (Org.). Observatório da Cidadania 2009 Edição Especial Diálogos sobre Violência e Segurança Pública: Razões e Urgências.  Rio de Janeiro: IBASE, 2009, v. 1, p. 31-40.
+
+Quinney, R. O controle do crime na sociedade capitalista: uma filosofia crítica da ordem legal. In: TAYLOR, WALTON, YOUNG. Criminologia crítica. Graal, p. 221-249, 1980.
+
+Ratton, J. L. A. et al Configurações de Homicídios: uma análise comparada das dimensões qualitativas e das dinâmicas sociais da criminalidade violenta em Pernambuco. Relatório de Pesquisa. Recife: NEPS-PPGS/UFPE, 2010.
+
+Reis, Ilka Afonso. Desigualdade, desenvolvimento socioeconômico e crime. Desigualdade e pobreza no Brasil, 2000.
+
+Salazar, L. F., Baker, C. K., Price, A. W., & Carlin, K. (2003). Moving beyond the individual: Examining the effects of domestic violence policies on social norms. American Journal of Community Psychology, 32, 253-264.
+
+Schraiber, L. B. et al Prevalence of intimate partner violence against women in regions of Brazil. Revista de Saúde Pública, v.41, p.797 - 807, 2007.
+
+Schraiber, L. B. et. al. Violencia dói e não é direito. A violência contra a mulher, a saúde e os direitos humanos. São Paulo: Unesp, 2005. 
+
+Sherman, Lawrence W. (1997), "Thinking about crime prevention", in L. Sherman, Denise Gottfredson, Doris MacKenzie, John Eck, Peter Reuter e Shawn Bushway, Preventing crime: what works, what doesn't, what's promising, Washington, National Institute of Justice.
+
+Straton, J. C. (2002). Rule of thumb versus rule of law. Men and Masculinities, 5, 103-109.
+
+Straus MA, Gelles RJ, Steinmetz SK. Behind closed doors: violence in the American family. New York: Anchor Press, 1980. 
+
+Vives-Cases C, Goicolea I, Hernández A, Sanz-Barbero B, Gill AK, Baldry AC, et al. (2016) Expert Opinions on Improving Femicide Data Collection across Europe: A Concept Mapping Study. PLoS ONE 11(2): e0148364. 
+
+Whaley RB, Messner SF. Gender equality and gendered homicides. Homicide Studies. 2003; 6:188–210.
+
+William C. Whitford, The Rule of Law, 2000 WIS. L. REV 723; see also Fallon, supra note 40, at 7-9.
+
+Williams, K. Economic sources of homicide: reestimating the effects of poverty and inequality. American Sociological Review, n. 49, p. 283-289, 1984.
+
+Wilson, J. Q. Thinking about crime. New York: Vintage Books, 1983.
+
+Yllo K, Bogard M, eds. Feminist perspectives on wife abuse. Newbury Park: Sage, 1998.
+
+
+Yllo K. Sexual equality and violence against wives in American States. J Comp Family Studies. 1983; 14:67–86. 
+
+Yodanis C. Gender Inequality, Violence against Women, and Fear. A Cross-National Test of the Feminist Theory of Violence against Women. J Interpersonal Violence. 2004;19:655–675.
+
+Zaluar, A. A máquina e a revolta. São Paulo: Brasiliense, 1985.
+
 
