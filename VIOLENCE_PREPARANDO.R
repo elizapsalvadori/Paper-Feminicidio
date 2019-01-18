@@ -1,3 +1,21 @@
+# Script paper:
+# título: "Feminicídio: o preço pago por ser mulher"
+# subtítulo: "Estudo dos determinantes do Feminicídio no Brasil"
+# autora: "Eliza Salvador"
+
+# Instalando pacotes:
+
+install.packages("DiagrammeR")
+install.packages("knitr")
+install.packages("kableExtra")
+install.packages("haven")
+install.packages("ggplot2")
+install.packages("pander")
+install.packages("car")
+install.packages("sjPloot")
+install.packages("jtools")
+install.packages("coefplot")
+install.packages("ggridges")
 
 
 # Ativando pacotes
