@@ -1,5 +1,18 @@
-install.packages("tinytex")
+
+
+# Ativando pacotes
+
+library(lmtest)
+library(car)
 library(tinytex)
+library(ggplot2)
+library(tidyverse)
+library(ggpubr)
+library(pander)
+library(coefplot)
+library(MASS)
+
+
 
 # Abrir a base de dados
 
@@ -204,6 +217,7 @@ leveragePlots(regressao_1)
 library(ggplot2)
 library(pander)
 library(lmtest)
+library(car)
 
 # Avaliando homecedasticidade - teste de variancia
 
@@ -212,7 +226,7 @@ library(lmtest)
 
 spreadLevelPlot(regressao_1)
 
-pander(bptest(regressao_1, varformula = NULL, studentize = TRUE, data = violence()))
+bptest(regressao_1, varformula = NULL, studentize = TRUE, data = violence())
 
 
 # Testando Pressuposto nao-normalidade, normalidade dos residuos
@@ -256,6 +270,8 @@ library(car)
 
 durbinWatsonTest(regressao_1) # Gerou tabela de coeficientes atraves do summary da regressao
 
+
+
 # Gerando Data Frame
 
 durbinTabela <- data.frame(lag = c (1),
@@ -272,9 +288,3 @@ pander(durbinTabela)
 library(ggplot2)
 library(pander)
 
-
-
-
-# COLOCAR ANTES DE TODAS AS REGRESSOES
-install.packages("lmtest")
-library(lmtest)
